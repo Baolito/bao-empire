@@ -3,13 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Bao's Dumpling Empire</title>
+    
+    <title>Bao's Empire</title>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Bao's Empire">
     
     <link rel="apple-touch-icon" href="https://fav.farm/🥟" />
     <link rel="apple-touch-icon-precomposed" href="https://fav.farm/🥟" />
-    <link rel="shortcut icon" href="https://fav.farm/🥟" />
-    
-    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link rel="icon" href="https://fav.farm/🥟" />
     
     <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
@@ -34,7 +36,6 @@
         .main-card { box-shadow: 0 20px 50px -12px rgba(12, 74, 110, 0.12); }
         .progress-glow { box-shadow: 0 0 12px rgba(56, 189, 248, 0.4); }
         ::-webkit-scrollbar { display: none; }
-        .history-gradient { mask-image: linear-gradient(to bottom, black 70%, transparent 100%); }
     </style>
 </head>
 <body>
@@ -95,7 +96,7 @@
         const App = () => {
             const [userData, setUserData] = useState(() => {
                 try {
-                    const saved = localStorage.getItem('bao_empire_v5');
+                    const saved = localStorage.getItem('bao_empire_v6');
                     return saved ? JSON.parse(saved) : { shares: 0, streak: 0, lastVisit: null, history: [] };
                 } catch {
                     return { shares: 0, streak: 0, lastVisit: null, history: [] };
@@ -117,7 +118,7 @@
             }, []);
 
             useEffect(() => {
-                localStorage.setItem('bao_empire_v5', JSON.stringify(userData));
+                localStorage.setItem('bao_empire_v6', JSON.stringify(userData));
             }, [userData]);
 
             useEffect(() => {
@@ -222,12 +223,12 @@
                         <div className="px-8 pb-6">
                             <div className="bg-bao-sky/10 rounded-2xl p-4 border border-bao-sky/20">
                                 <h3 className="text-[10px] uppercase font-black text-bao-navy/40 tracking-[0.2em] mb-3">Growth History</h3>
-                                <div className="space-y-2 history-gradient">
+                                <div className="space-y-2">
                                     {userData.history.length === 0 ? (
                                         <p className="text-[11px] text-bao-navy/20 italic">No records yet. Visit Bao!</p>
                                     ) : (
                                         userData.history.map((item, i) => (
-                                            <div key={i} className="flex justify-between items-center text-[11px] font-bold">
+                                            <div key={i} className="flex justify-between items-center text-[11px] font-bold border-b border-bao-sky/10 pb-1">
                                                 <span className="text-bao-navy/40">{item.date}</span>
                                                 <span className={item.gain ? 'text-green-500' : 'text-rose-400'}>
                                                     €{item.val.toLocaleString('de-DE', { minimumFractionDigits: 2 })}
