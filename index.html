@@ -16,58 +16,26 @@
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
-    
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <script>
         tailwind.config = {
             theme: {
                 extend: {
-                    colors: {
-                        bao: {
-                            sky: '#f0f9ff',
-                            navy: '#0c4a6e',
-                            blue: '#38bdf8',
-                            darkBlue: '#0369a1',
-                        }
-                    },
-                    fontFamily: {
-                        sans: ['Quicksand', 'sans-serif'],
-                    },
-                    keyframes: {
-                        float: {
-                            '0%, 100%': { transform: 'translateY(0)' },
-                            '50%': { transform: 'translateY(-12px)' },
-                        }
-                    },
-                    animation: {
-                        float: 'float 3.5s ease-in-out infinite',
-                    }
+                    colors: { bao: { sky: '#f0f9ff', navy: '#0c4a6e', blue: '#38bdf8', darkBlue: '#0369a1' } },
+                    fontFamily: { sans: ['Quicksand', 'sans-serif'] },
+                    keyframes: { float: { '0%, 100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-12px)' } } },
+                    animation: { float: 'float 3.5s ease-in-out infinite' }
                 }
             }
         }
     </script>
     <style>
-        body {
-            background-color: #f0f9ff;
-            color: #0c4a6e;
-            font-family: 'Quicksand', sans-serif;
-            margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            user-select: none;
-            -webkit-tap-highlight-color: transparent;
-            overflow: hidden;
-        }
-        .main-card {
-            box-shadow: 0 20px 50px -12px rgba(12, 74, 110, 0.12);
-        }
-        .progress-glow {
-            box-shadow: 0 0 12px rgba(56, 189, 248, 0.4);
-        }
+        body { background-color: #f0f9ff; color: #0c4a6e; font-family: 'Quicksand', sans-serif; margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; user-select: none; -webkit-tap-highlight-color: transparent; overflow-x: hidden; }
+        .main-card { box-shadow: 0 20px 50px -12px rgba(12, 74, 110, 0.12); }
+        .progress-glow { box-shadow: 0 0 12px rgba(56, 189, 248, 0.4); }
         ::-webkit-scrollbar { display: none; }
+        .history-gradient { mask-image: linear-gradient(to bottom, black 70%, transparent 100%); }
     </style>
 </head>
 <body>
@@ -87,61 +55,35 @@
             "A little dough today, a whole empire tomorrow."
         ];
 
-        // --- SVGs ---
         const BlueFireIcon = () => (
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                <path d="M12 2C12 2 15 5 15 9C15 11 14 13 12 15C10 13 9 11 9 9C9 5 12 2 12 2Z" fill="#38bdf8" />
-                <path d="M12 6C12 6 17 11 17 16C17 19.3137 14.3137 22 11 22C7.68629 22 5 19.3137 5 16C5 11 12 6 12 6Z" fill="#0ea5e9" />
-                <path d="M12 10C12 10 14 13 14 16C14 17.6569 12.6569 19 11 19C9.34315 19 8 17.6569 8 16C8 13 12 10 12 10Z" fill="#7dd3fc" />
-            </svg>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 2C12 2 15 5 15 9C15 11 14 13 12 15C10 13 9 11 9 9C9 5 12 2 12 2Z" fill="#38bdf8" /><path d="M12 6C12 6 17 11 17 16C17 19.3137 14.3137 22 11 22C7.68629 22 5 19.3137 5 16C5 11 12 6 12 6Z" fill="#0ea5e9" /><path d="M12 10C12 10 14 13 14 16C14 17.6569 12.6569 19 11 19C9.34315 19 8 17.6569 8 16C8 13 12 10 12 10Z" fill="#7dd3fc" /></svg>
         );
 
         const BlueGemIcon = () => (
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                <path d="M12 2L20 8L12 22L4 8L12 2Z" fill="#0284c7" />
-                <path d="M12 2L16 8L12 14L8 8L12 2Z" fill="#7dd3fc" />
-                <path d="M12 14L20 8L12 22L4 8L12 14Z" fill="#0ea5e9" />
-            </svg>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 2L20 8L12 22L4 8L12 2Z" fill="#0284c7" /><path d="M12 2L16 8L12 14L8 8L12 2Z" fill="#7dd3fc" /><path d="M12 14L20 8L12 22L4 8L12 14Z" fill="#0ea5e9" /></svg>
         );
 
         const BaoMascot = ({ mood }) => {
             const outline = "#0c4a6e";
             return (
-                <div className="relative w-44 h-44 animate-float flex items-center justify-center">
+                <div className="relative w-40 h-40 animate-float flex items-center justify-center">
                     <div className="absolute bottom-6 w-28 h-3 bg-bao-navy/5 rounded-[100%] blur-md"></div>
-                    <svg width="150" height="130" viewBox="0 0 140 120" fill="none">
+                    <svg width="140" height="120" viewBox="0 0 140 120" fill="none">
                         <path d="M10 90C10 50 30 20 70 20C110 20 130 50 130 90C130 110 110 115 70 115C30 115 10 110 10 90Z" fill="white" stroke={outline} strokeWidth="5" />
                         <path d="M55 22C60 12 80 12 85 22" stroke={outline} strokeWidth="3" strokeLinecap="round" />
                         <path d="M70 20V12" stroke={outline} strokeWidth="3" strokeLinecap="round" />
                         <g className="transition-all duration-300">
                             {mood === 'Happy' && (
-                                <g>
-                                    <path d="M45 70C45 70 52 76 60 70" stroke={outline} strokeWidth="4" strokeLinecap="round" />
-                                    <path d="M80 70C80 70 88 76 95 70" stroke={outline} strokeWidth="4" strokeLinecap="round" />
-                                    <path d="M60 92C65 98 75 98 80 92" stroke={outline} strokeWidth="4" strokeLinecap="round" />
-                                </g>
+                                <g><path d="M45 70C45 70 52 76 60 70" stroke={outline} strokeWidth="4" strokeLinecap="round" /><path d="M80 70C80 70 88 76 95 70" stroke={outline} strokeWidth="4" strokeLinecap="round" /><path d="M60 92C65 98 75 98 80 92" stroke={outline} strokeWidth="4" strokeLinecap="round" /></g>
                             )}
                             {mood === 'Excited' && (
-                                <g>
-                                    <circle cx="55" cy="70" r="6" fill={outline} />
-                                    <circle cx="85" cy="70" r="6" fill={outline} />
-                                    <path d="M60 88C60 88 70 104 80 88" fill="#F472B6" />
-                                    <path d="M60 88C60 88 70 104 80 88L60 88Z" stroke={outline} strokeWidth="3" />
-                                </g>
+                                <g><circle cx="55" cy="70" r="6" fill={outline} /><circle cx="85" cy="70" r="6" fill={outline} /><path d="M60 88C60 88 70 104 80 88" fill="#F472B6" /><path d="M60 88C60 88 70 104 80 88L60 88Z" stroke={outline} strokeWidth="3" /></g>
                             )}
                             {mood === 'Sad' && (
-                                <g>
-                                    <path d="M45 75C45 75 52 69 60 75" stroke={outline} strokeWidth="4" strokeLinecap="round" />
-                                    <path d="M80 75C80 75 88 69 95 75" stroke={outline} strokeWidth="4" strokeLinecap="round" />
-                                    <path d="M65 95C70 90 75 90 80 95" stroke={outline} strokeWidth="4" strokeLinecap="round" />
-                                </g>
+                                <g><path d="M45 75C45 75 52 69 60 75" stroke={outline} strokeWidth="4" strokeLinecap="round" /><path d="M80 75C80 75 88 69 95 75" stroke={outline} strokeWidth="4" strokeLinecap="round" /><path d="M65 95C70 90 75 90 80 95" stroke={outline} strokeWidth="4" strokeLinecap="round" /></g>
                             )}
                             {mood === 'Thinking' && (
-                                <g>
-                                    <circle cx="55" cy="72" r="4" fill={outline} />
-                                    <circle cx="85" cy="72" r="4" fill={outline} />
-                                    <rect x="62" y="90" width="16" height="4" rx="2" fill={outline} />
-                                </g>
+                                <g><circle cx="55" cy="72" r="4" fill={outline} /><circle cx="85" cy="72" r="4" fill={outline} /><rect x="62" y="90" width="16" height="4" rx="2" fill={outline} /></g>
                             )}
                         </g>
                         <circle cx="32" cy="85" r="10" fill="#FFD1D1" opacity="0.6" />
@@ -154,10 +96,10 @@
         const App = () => {
             const [userData, setUserData] = useState(() => {
                 try {
-                    const saved = localStorage.getItem('bao_empire_final_v1');
-                    return saved ? JSON.parse(saved) : { shares: 0, streak: 0, lastVisit: null };
+                    const saved = localStorage.getItem('bao_empire_v5');
+                    return saved ? JSON.parse(saved) : { shares: 0, streak: 0, lastVisit: null, history: [] };
                 } catch {
-                    return { shares: 0, streak: 0, lastVisit: null };
+                    return { shares: 0, streak: 0, lastVisit: null, history: [] };
                 }
             });
 
@@ -176,9 +118,7 @@
             }, []);
 
             useEffect(() => {
-                try {
-                    localStorage.setItem('bao_empire_final_v1', JSON.stringify(userData));
-                } catch (e) { console.warn("Storage restricted"); }
+                localStorage.setItem('bao_empire_v5', JSON.stringify(userData));
             }, [userData]);
 
             useEffect(() => {
@@ -198,9 +138,21 @@
                 setTimeout(() => {
                     const change = (Math.random() - 0.45) * 0.012;
                     const newPrice = currentPrice * (1 + change);
+                    const newVal = userData.shares * newPrice;
+                    
                     setStatus(newPrice > currentPrice ? 'up' : 'down');
                     setCurrentPrice(newPrice);
                     setMood(newPrice > currentPrice ? 'Excited' : 'Sad');
+                    
+                    setUserData(prev => ({
+                        ...prev,
+                        history: [{
+                            date: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+                            val: newVal,
+                            gain: newPrice > currentPrice
+                        }, ...prev.history].slice(0, 5)
+                    }));
+
                     setTimeout(() => {
                         setMood('Happy');
                         setStatus(null);
@@ -213,15 +165,15 @@
             };
 
             return (
-                <div className="w-full max-w-sm p-4 flex flex-col items-center">
-                    <div className="bg-white rounded-[3rem] main-card border border-white w-full overflow-hidden transition-all duration-500 ring-1 ring-bao-sky">
+                <div className="w-full max-w-md p-4 flex flex-col items-center">
+                    <div className="bg-white rounded-[3rem] main-card border border-white w-full overflow-hidden ring-1 ring-bao-sky">
                         
-                        <div className="flex justify-between items-center p-8 pb-2">
-                            <div className="flex items-center space-x-2 bg-bao-sky/50 px-4 py-2 rounded-full border border-blue-50">
+                        <div className="flex justify-between items-center p-6 pb-2">
+                            <div className="flex items-center space-x-2 bg-bao-sky/50 px-4 py-2 rounded-full">
                                 <BlueFireIcon />
                                 <span className="font-bold text-bao-navy text-lg">{userData.streak}</span>
                             </div>
-                            <div className="flex items-center space-x-2 bg-bao-sky/50 px-4 py-2 rounded-full border border-blue-50">
+                            <div className="flex items-center space-x-2 bg-bao-sky/50 px-4 py-2 rounded-full">
                                 <BlueGemIcon />
                                 <span className="font-bold text-bao-navy text-lg">{gems}</span>
                             </div>
@@ -229,63 +181,69 @@
 
                         <div className="flex flex-col items-center py-2">
                             <BaoMascot mood={mood} />
-                            <h1 className="text-2xl font-black text-bao-navy tracking-tight -mt-4">Bao's Empire</h1>
-                            <span className="text-[10px] font-black uppercase tracking-[0.3em] opacity-30 mt-1">VWCE Tracking</span>
+                            <h1 className="text-2xl font-black text-bao-navy -mt-2">Bao's Empire</h1>
                         </div>
 
-                        <div className="px-10 space-y-6">
+                        <div className="px-8 space-y-6">
                             <div className="text-center">
                                 <div className={`text-4xl font-black tabular-nums transition-colors duration-500 ${status === 'up' ? 'text-green-500' : status === 'down' ? 'text-rose-500' : 'text-bao-navy'}`}>
                                     €{totalValue.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                                 </div>
-                                <div className="text-[10px] font-extrabold text-bao-navy/40 uppercase tracking-widest mt-2">
-                                    Price: €{currentPrice.toFixed(2)}
+                                <div className="text-[10px] font-extrabold text-bao-navy/40 uppercase tracking-widest mt-1">
+                                    Current Price: €{currentPrice.toFixed(2)}
                                 </div>
                             </div>
 
-                            <div className="space-y-2.5">
-                                <div className="flex justify-between text-[10px] font-black uppercase tracking-widest text-bao-navy/20 px-1">
+                            <div className="space-y-2">
+                                <div className="flex justify-between text-[10px] font-black uppercase text-bao-navy/20">
                                     <span>€{(nextMilestone - 1000).toLocaleString()}</span>
                                     <span>Goal: €{nextMilestone.toLocaleString()}</span>
                                 </div>
-                                <div className="h-4 w-full bg-bao-sky/40 rounded-full overflow-hidden border border-bao-sky relative p-0.5">
-                                    <div 
-                                        className="h-full bg-gradient-to-r from-bao-blue to-bao-darkBlue transition-all duration-1000 rounded-full progress-glow"
-                                        style={{ width: `${progress}%` }}
-                                    />
+                                <div className="h-3 w-full bg-bao-sky/40 rounded-full overflow-hidden p-0.5">
+                                    <div className="h-full bg-gradient-to-r from-bao-blue to-bao-darkBlue transition-all duration-1000 rounded-full progress-glow" style={{ width: `${progress}%` }} />
                                 </div>
                             </div>
                         </div>
 
-                        <div className="p-10 space-y-6">
-                            <div className="flex items-center justify-between bg-bao-sky/20 p-2 rounded-[2.5rem] border border-bao-sky/40 shadow-inner">
-                                <button onClick={() => adjustShares(-1)} className="w-12 h-12 flex items-center justify-center rounded-2xl bg-white text-bao-navy text-2xl font-bold shadow-sm active:scale-90">-</button>
+                        <div className="p-8 space-y-4">
+                            <div className="flex items-center justify-between bg-bao-sky/20 p-2 rounded-[2rem] border border-bao-sky/40">
+                                <button onClick={() => adjustShares(-1)} className="w-10 h-10 flex items-center justify-center rounded-xl bg-white text-bao-navy text-xl font-bold active:scale-90 shadow-sm">-</button>
                                 <div className="flex flex-col items-center">
-                                    <span className="text-2xl font-black text-bao-navy leading-none">{userData.shares}</span>
-                                    <span className="text-[10px] uppercase font-black text-bao-navy/30 tracking-widest mt-1">Units</span>
+                                    <span className="text-xl font-black text-bao-navy">{userData.shares}</span>
+                                    <span className="text-[9px] uppercase font-black text-bao-navy/30 tracking-widest">Units</span>
                                 </div>
-                                <button onClick={() => adjustShares(1)} className="w-12 h-12 flex items-center justify-center rounded-2xl bg-bao-blue text-white text-2xl font-bold shadow-md active:scale-90">+</button>
+                                <button onClick={() => adjustShares(1)} className="w-10 h-10 flex items-center justify-center rounded-xl bg-bao-blue text-white text-xl font-bold active:scale-90 shadow-sm">+</button>
                             </div>
 
-                            <button 
-                                onClick={visitBao}
-                                disabled={mood === 'Thinking'}
-                                className="w-full bg-bao-navy text-white py-4 rounded-[2rem] font-bold text-lg shadow-lg active:scale-[0.98] transition-all disabled:opacity-50"
-                            >
+                            <button onClick={visitBao} disabled={mood === 'Thinking'} className="w-full bg-bao-navy text-white py-4 rounded-2xl font-bold text-lg active:scale-95 transition-all disabled:opacity-50">
                                 {mood === 'Thinking' ? 'Connecting...' : 'Visit Bao'}
                             </button>
                         </div>
 
-                        <div className="bg-bao-sky/30 py-6 px-10 border-t border-bao-sky/20 text-center">
-                            <p className="text-[11px] italic text-bao-navy/40 font-bold leading-relaxed px-2">
-                                "{affirmation}"
-                            </p>
+                        <div className="px-8 pb-6">
+                            <div className="bg-bao-sky/10 rounded-2xl p-4 border border-bao-sky/20">
+                                <h3 className="text-[10px] uppercase font-black text-bao-navy/40 tracking-[0.2em] mb-3">Growth History</h3>
+                                <div className="space-y-2 history-gradient">
+                                    {userData.history.length === 0 ? (
+                                        <p className="text-[11px] text-bao-navy/20 italic">No records yet. Visit Bao!</p>
+                                    ) : (
+                                        userData.history.map((item, i) => (
+                                            <div key={i} className="flex justify-between items-center text-[11px] font-bold">
+                                                <span className="text-bao-navy/40">{item.date}</span>
+                                                <span className={item.gain ? 'text-green-500' : 'text-rose-400'}>
+                                                    €{item.val.toLocaleString('de-DE', { minimumFractionDigits: 2 })}
+                                                </span>
+                                            </div>
+                                        ))
+                                    )}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="bg-bao-sky/30 py-4 px-8 border-t border-bao-sky/20 text-center">
+                            <p className="text-[10px] italic text-bao-navy/40 font-bold">"{affirmation}"</p>
                         </div>
                     </div>
-                    
-                    <footer className="mt-8 text-[10px] uppercase tracking-[0.5em] font-black text-bao-navy/10">
-                        Bao Widget v4.0
-                    </footer>
                 </div>
             );
         };
